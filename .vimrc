@@ -9,6 +9,8 @@ colorscheme solarized
 hi Normal ctermbg=none
 
 map <C-n> :NERDTreeToggle<CR>
+" Map Ctrl+n to open NERDTree at the current file
+nnoremap <C-n> :NERDTreeFind<CR>
 
 " Ability to close vim when only NERD tree is open.
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -23,6 +25,10 @@ nnoremap <c-l> <c-w>l
 
 "Shows current command in a line at the bottom
 set showcmd
+set cmdheight=1
+
+set statusline=%f
+set laststatus=2
 
 "Highlight search
 set hlsearch
@@ -50,6 +56,8 @@ endif
 "Replaces tabs with spaces in insert mode
 set expandtab
 
+set nonumber!
+
 if executable('ag')
   " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
@@ -66,6 +74,10 @@ if executable('ag')
   endif
 endif
 
+" Enable Copilot by default
+let g:copilot_enabled = 1
+imap <silent><script><expr> <Tab> copilot#Accept("\<CR>")
+
 "Make the 81st column stand out
 highlight ColorColumn ctermbg=LightMagenta
-call matchadd('ColorColumn', '\%81v', 100) 
+call matchadd('ColorColumn', '\%81v', 100)
